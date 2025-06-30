@@ -12,8 +12,10 @@ An Android application that performs deep neural network inference on images usi
 
 ## 📱 Screenshots
 
+<img src="images/app_screenshot.jpg" alt="Android DNN Inference App Screenshot" width="300">
+
 The app provides a simple interface where you can:
-1. Select your preferred inference backend (CPU/GPU/NNAPI)
+1. Select your preferred inference backend (CPU/GPU/NNAPI/NPU)
 2. Pick an image from your device's gallery
 3. Run inference and see the classification results with confidence scores
 
