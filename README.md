@@ -5,7 +5,7 @@ An Android application that performs deep neural network inference on images usi
 ## 🚀 Features
 
 - **Image Classification**: Classify images from your gallery using a pre-trained MobileNet v2 model
-- **Multiple Backends**: Choose between CPU, GPU, and NNAPI for inference acceleration
+- **Multiple Backends**: Choose between CPU, GPU, NNAPI, and NPU for inference acceleration
 - **1000+ Classes**: Supports ImageNet classification with over 1000 different object classes
 - **Modern UI**: Built with Jetpack Compose for a smooth, modern user experience
 - **Real-time Results**: Get classification results with confidence scores instantly
@@ -57,7 +57,7 @@ cd DNN_Android
 
 ### 4. Using the App
 
-1. **Select Backend**: Choose between CPU, GPU, or NNAPI
+1. **Select Backend**: Choose between CPU, GPU, NNAPI, or NPU
 2. **Pick Image**: Tap "Pick Image from Gallery" to select a photo
 3. **Run Inference**: Tap "Run Inference" to classify the selected image
 4. **View Results**: See the predicted class and confidence score
@@ -114,7 +114,7 @@ To support additional compute backends:
 
 1. **Update Backend enum**:
    ```kotlin
-   enum class Backend { CPU, GPU, NNAPI, HEXAGON } // Add new backend
+   enum class Backend { CPU, GPU, NNAPI, NPU } // Add new backend
    ```
 
 2. **Modify initialization**:
@@ -122,42 +122,28 @@ To support additional compute backends:
    when (backend) {
        Backend.GPU -> options.addDelegate(GpuDelegate())
        Backend.NNAPI -> options.addDelegate(NnApiDelegate())
-       Backend.HEXAGON -> options.addDelegate(HexagonDelegate())
+       Backend.NPU -> options.addDelegate(NpuDelegate()) // Custom NPU delegate
        else -> { /* CPU - no delegate needed */ }
    }
    ```
 
-### Performance Optimization Tips
+### NPU Backend Support (Needed Feature)
 
-1. **Model Quantization**: Use quantized models for faster inference
-2. **GPU Delegate**: Enable GPU acceleration for compatible devices
-3. **NNAPI**: Use Android Neural Networks API for hardware acceleration
-4. **Batch Processing**: Process multiple images simultaneously if needed
+**Status**: 🚧 **In Development**
 
-## 🧪 Testing
+NPU (Neural Processing Unit) support is a planned feature to leverage dedicated AI chips for ultra-fast inference:
 
-### Unit Tests
-```bash
-./gradlew test
-```
+- **Target Hardware**: Devices with dedicated NPU/AI chips (e.g., Snapdragon with Hexagon DSP, MediaTek APU, Samsung NPU)
+- **Expected Performance**: 2-5x faster than GPU inference with lower power consumption
+- **Implementation Needed**: 
+  - Custom NPU delegate integration
+  - Hardware-specific optimization
+  - Fallback mechanisms for unsupported devices
 
-### Instrumented Tests
-```bash
-./gradlew connectedAndroidTest
-```
+**Contribution Welcome**: If you have experience with NPU programming or access to NPU-enabled devices, contributions are highly appreciated!
 
-## 📊 Performance Benchmarks
 
-Typical inference times on different devices:
 
-| Device | Backend | Inference Time |
-|--------|---------|----------------|
-| Pixel 6 | CPU | ~50ms |
-| Pixel 6 | GPU | ~25ms |
-| Samsung S21 | CPU | ~60ms |
-| Samsung S21 | GPU | ~30ms |
-
-*Note: Times may vary based on image resolution and device thermal state*
 
 ## 🤝 Contributing
 
@@ -170,20 +156,6 @@ Typical inference times on different devices:
 ## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 🆘 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/zhiyuanGH/DNN_Android/issues) page
-2. Create a new issue with detailed information about your problem
-3. Include device information, Android version, and error logs
-
-## 🙏 Acknowledgments
-
-- [TensorFlow Lite](https://www.tensorflow.org/lite) team for the inference framework
-- [MobileNet](https://arxiv.org/abs/1801.04381) authors for the efficient model architecture
-- Android Jetpack Compose team for the modern UI framework
 
 ---
 
